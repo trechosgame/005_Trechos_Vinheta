@@ -1,27 +1,118 @@
 <!DOCTYPE html>
-<html lang= "pt-br">
+<html lang="pt-br">
 <head>
-   <title>CSS & JavaScript Background Animation Effects</title>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1"> 
- <link rel="stylesheet" type="text/css" href="style.css"/>
- </head>
-<body>
-    <section>
-    <h2></h2>
-    <div class="banner"></div>
-      <div class="blocks"></div>
-     </div>
-    </section>
-    <script>
-      const banner = document.getElementByClassName('banner')[0];
-      const blocks = document.getElementByClassName('blocks');
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animação de Blocos com Foto de Fundo</title>
 
-      for (var i = 1; i < 400; i++){
-        banner.innerHTML += "<div class='blocks'></div>";
-        blocks[i].style.animationDelay = `${i * 0.05}s`;
-      }
-    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            overflow-x: hidden;
+        }
+
+        section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: #111;
+            overflow: hidden;
+        }
+
+        section h2 {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(4rem, 12vw, 12rem);
+            color: #fff;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 10;
+            pointer-events: none;
+            mix-blend-mode: difference; /* efeito legal com a foto */
+        }
+
+        .banner {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(5vw, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(5vh, 1fr));
+            gap: 0;
+        }
+
+        .block {
+            background: #111;
+            animation: animate 0.75s ease-in-out forwards;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Variações de delay para efeito cascata */
+        .block:nth-child(7n + 1) { animation-delay: 0.1s; }
+        .block:nth-child(7n + 2) { animation-delay: 0.3s; }
+        .block:nth-child(7n + 3) { animation-delay: 0.6s; }
+        .block:nth-child(7n + 4) { animation-delay: 0.9s; }
+        .block:nth-child(7n + 5) { animation-delay: 1.2s; }
+        .block:nth-child(7n + 6) { animation-delay: 1.5s; }
+        .block:nth-child(7n + 7) { animation-delay: 1.8s; }
+
+        @keyframes animate {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(800px) rotate(360deg);
+            }
+            50% {
+                opacity: 1;
+                background: url('QUIZ_F.jpg') center/cover no-repeat;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotate(0deg);
+                background: url('QUIZ_F.jpg') center/cover no-repeat;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section h2 {
+                font-size: clamp(3rem, 15vw, 8rem);
+            }
+            .banner {
+                grid-template-columns: repeat(auto-fill, minmax(8vw, 1fr));
+                grid-template-rows: repeat(auto-fill, minmax(8vh, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <h2>ANIMAÇÃO</h2>
+    <div class="banner" id="banner"></div>
+</section>
+
+<script>
+    const banner = document.getElementById('banner');
+
+    // Cria os blocos dinamicamente
+    for (let i = 0; i < 400; i++) {
+        const block = document.createElement('div');
+        block.className = 'block';
+        banner.appendChild(block);
+    }
+</script>
+
 </body>
 </html>
-
