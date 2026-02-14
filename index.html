@@ -105,11 +105,18 @@
 
 <script>
     const banner = document.getElementById('banner');
-
-    // Cria os blocos dinamicamente
-    for (let i = 0; i < 400; i++) {
+    
+    // Diminuímos para 180 blocos (ótimo equilíbrio)
+    const totalBlocks = 180;
+    
+    for (let i = 0; i < totalBlocks; i++) {
         const block = document.createElement('div');
         block.className = 'block';
+        
+        // Delay progressivo mais suave e rápido
+        // Quanto menor o valor (ex: 0.03), mais rápido o efeito cascata
+        block.style.animationDelay = `${i * 0.03}s`;
+        
         banner.appendChild(block);
     }
 </script>
